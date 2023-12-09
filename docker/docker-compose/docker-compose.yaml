@@ -1,0 +1,162 @@
+version: '3'
+name: proyecto-ucu-2024
+
+services:
+  pgadmin:
+    container_name: pgadmin
+    build:
+      context: ../../../backoffice/pgadmin
+      dockerfile: dockerfile
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    networks:
+      - persistency
+
+  postgres:
+    container_name: postgres
+    build:
+      context: ../../../persistency/postgress
+      dockerfile: dockerfile
+    ports:
+      - "5432:5432"
+    depends_on:
+      - pgadmin
+    restart: unless-stopped
+    networks:
+      - persistency
+
+  redis:
+    container_name: redis
+    restart: unless-stopped
+    build:
+      context: ../../../persistency/redis
+      dockerfile: dockerfile
+    ports:
+      - "6379:6379"
+    networks:
+      - persistency
+  redis_insight:
+    container_name: redis_insight
+    build:
+      context: ../../../backoffice/redis-insight
+      dockerfile: dockerfile
+    restart: unless-stopped
+    ports:
+      - 8001:8001
+    networks:
+      - persistency
+
+  mongodb:
+    container_name: mongodb
+    build:
+      context: ../../../persistency/mongodb
+      dockerfile: dockerfile
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    networks:
+      - persistency
+
+  mongodb-express:
+    container_name: mongodb-express
+    build:
+      context: ../../../backoffice/mongo-express
+      dockerfile: dockerfile
+    restart: unless-stopped
+    ports:
+      - 8083:8081
+    networks:
+      - persistency
+
+  redpanda:
+    container_name: redpanda
+    build:
+      context: ../../../persistency/redpanda
+      dockerfile: dockerfile
+    restart: unless-stopped
+    ports:
+      - 18081:18081
+      - 18082:18082
+      - 19092:19092
+      - 19644:9644
+      - 8081:8081
+      - 9092:9092
+    networks:
+      - persistency  
+
+  redpanda-console:
+    container_name: redpanda-console
+    build:
+      context: ../../../backoffice/redpanda-console
+      dockerfile: dockerfile
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    networks:
+      - persistency  
+    depends_on:
+      - redpanda
+
+  rabitmq:
+    container_name: rabitmq
+    build:
+      context: ../../../persistency/rabitmq
+      dockerfile: dockerfile
+    restart: unless-stopped
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - persistency
+
+  prometheus:
+    container_name: prometheus
+    build:
+      context: ../../../backoffice/prometheus
+      dockerfile: dockerfile
+    restart: unless-stopped
+    ports:
+      - 9090:9090
+    networks:
+      - persistency
+
+  grafana:
+    container_name: grafana
+    build:
+      context: ../../../backoffice/grafana
+      dockerfile: dockerfile
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    networks:
+      - persistency  
+
+  keycloack:
+    container_name: keycloack
+    build:
+      context: ../../../backoffice/keycloack
+      dockerfile: dockerfile
+    restart: unless-stopped
+    ports:
+      - 8082:8080
+    networks:
+      - persistency  
+
+  nginx-ui:  
+    container_name: nginx-ui
+    build:
+      context: ../../../persistency/nginx-ui
+      dockerfile: dockerfile
+    restart: unless-stopped
+    ports:
+      - 8084:80
+      - 8443:443
+    networks:
+      - persistency      
+
+
+networks:
+  persistency:
+    driver: bridge
+    name: persistency
