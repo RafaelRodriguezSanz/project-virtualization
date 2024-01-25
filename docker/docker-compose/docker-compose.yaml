@@ -7,6 +7,7 @@ services:
     build:
       context: ../../../backoffice/pgadmin
       dockerfile: dockerfile
+    image: "pelado1998/pgadmin:latest"
     restart: unless-stopped
     ports:
       - 81:80
@@ -18,6 +19,7 @@ services:
    build:
      context: ../../../persistency/postgress
      dockerfile: dockerfile
+   image: "pelado1998/postgres:latest"
    ports:
      - "5432:5432"
    depends_on:
@@ -32,6 +34,7 @@ services:
    build:
      context: ../../../persistency/redis
      dockerfile: dockerfile
+   image: "pelado1998/redis:latest"
    ports:
      - "6379:6379"
    networks:
@@ -41,6 +44,7 @@ services:
   # build:
   #   context: ../../../backoffice/redis-insight
   #   dockerfile: dockerfile
+  #   image: "pelado1998/redis_insight:latest"
   # restart: unless-stopped
   # ports:
   #   - 8001:8001
@@ -52,6 +56,7 @@ services:
    build:
      context: ../../../persistency/mongoDB
      dockerfile: dockerfile
+   image: "pelado1998/mongodb:latest"
    restart: unless-stopped
    ports:
      - 27017:27017
@@ -63,6 +68,7 @@ services:
   # build:
   #   context: ../../../backoffice/mongo-express
   #   dockerfile: dockerfile
+  # image: "pelado1998/mongodb:latest"
   # restart: unless-stopped
   # ports:
   #   - 8083:8081
@@ -74,6 +80,7 @@ services:
    build:
      context: ../../../persistency/redpanda
      dockerfile: dockerfile
+   image: "pelado1998/redpanda:latest"
    restart: unless-stopped
    ports:
      - 18081:18081
@@ -90,6 +97,7 @@ services:
   # build:
   #   context: ../../../backoffice/redpanda-console
   #   dockerfile: dockerfile
+  #   image: "pelado1998/redpanda-console:latest"
   # restart: unless-stopped
   # ports:
   #   - 8085:8080
@@ -103,6 +111,7 @@ services:
    build:
      context: ../../../persistency/rabitmq
      dockerfile: dockerfile
+   image: "pelado1998/rabitmq:latest"
    restart: unless-stopped
    ports:
      - 5672:5672
@@ -115,6 +124,7 @@ services:
   # build:
   #   context: ../../../backoffice/prometheus
   #   dockerfile: dockerfile
+  # image: "pelado1998/prometheus:latest"
   # restart: unless-stopped
   # ports:
   #   - 9090:9090
@@ -126,6 +136,7 @@ services:
    build:
      context: ../../../backoffice/grafana
      dockerfile: dockerfile
+   image: "pelado1998/grafana:latest"
    restart: unless-stopped
    ports:
      - 3000:3000
@@ -137,6 +148,7 @@ services:
   #  build:
   #    context: ../../../backoffice/keycloack
   #    dockerfile: dockerfile
+  #  image: "pelado1998/keycloack:latest"
   #  restart: unless-stopped
   #  ports:
   #    - 8082:8080
@@ -148,6 +160,7 @@ services:
   #  build:
   #    context: ../../../persistency/nginx-ui
   #    dockerfile: dockerfile
+  #  image: "pelado1998/nginx-ui:latest"
   #  restart: unless-stopped
   #  ports:
   #    - 8084:80
@@ -160,6 +173,7 @@ services:
     build:
       context: ../../../backend
       dockerfile: dockerfile
+    image: "pelado1998/backend:latest"
     restart: unless-stopped
     ports:
       - 8080:8080
@@ -171,12 +185,12 @@ services:
     build:
       context: ../../../frontend
       dockerfile: dockerfile
+    image: "pelado1998/frontend:latest"
     restart: unless-stopped
     ports:
       - 80:80
     networks:
       - persistency      
-
 
 networks:
   persistency:
