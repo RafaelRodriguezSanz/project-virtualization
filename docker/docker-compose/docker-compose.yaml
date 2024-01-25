@@ -36,16 +36,16 @@ services:
      - "6379:6379"
    networks:
      - persistency
-  redis_insight:
-   container_name: redis_insight
-   build:
-     context: ../../../backoffice/redis-insight
-     dockerfile: dockerfile
-   restart: unless-stopped
-   ports:
-     - 8001:8001
-   networks:
-     - persistency
+  #redis_insight:
+  # container_name: redis_insight
+  # build:
+  #   context: ../../../backoffice/redis-insight
+  #   dockerfile: dockerfile
+  # restart: unless-stopped
+  # ports:
+  #   - 8001:8001
+  # networks:
+  #   - persistency
 
   mongodb:
    container_name: mongodb
@@ -58,16 +58,16 @@ services:
    networks:
      - persistency
 
-  mongodb-express:
-   container_name: mongodb-express
-   build:
-     context: ../../../backoffice/mongo-express
-     dockerfile: dockerfile
-   restart: unless-stopped
-   ports:
-     - 8083:8081
-   networks:
-     - persistency
+  #mongodb-express:
+  # container_name: mongodb-express
+  # build:
+  #   context: ../../../backoffice/mongo-express
+  #   dockerfile: dockerfile
+  # restart: unless-stopped
+  # ports:
+  #   - 8083:8081
+  # networks:
+  #   - persistency
 
   redpanda:
    container_name: redpanda
@@ -85,18 +85,18 @@ services:
    networks:
      - persistency  
 
-  redpanda-console:
-   container_name: redpanda-console
-   build:
-     context: ../../../backoffice/redpanda-console
-     dockerfile: dockerfile
-   restart: unless-stopped
-   ports:
-     - 8085:8080
-   networks:
-     - persistency  
-   depends_on:
-     - redpanda
+  #redpanda-console:
+  # container_name: redpanda-console
+  # build:
+  #   context: ../../../backoffice/redpanda-console
+  #   dockerfile: dockerfile
+  # restart: unless-stopped
+  # ports:
+  #   - 8085:8080
+  # networks:
+  #   - persistency  
+  # depends_on:
+  #   - redpanda
 
   rabitmq:
    container_name: rabitmq
@@ -132,28 +132,28 @@ services:
    networks:
      - persistency  
 
-  keycloack:
-    container_name: keycloack
-    build:
-      context: ../../../backoffice/keycloack
-      dockerfile: dockerfile
-    restart: unless-stopped
-    ports:
-      - 8082:8080
-    networks:
-      - persistency  
+  #keycloack:
+  #  container_name: keycloack
+  #  build:
+  #    context: ../../../backoffice/keycloack
+  #    dockerfile: dockerfile
+  #  restart: unless-stopped
+  #  ports:
+  #    - 8082:8080
+  #  networks:
+  #    - persistency  
 
-  nginx-ui:  
-    container_name: nginx-ui
-    build:
-      context: ../../../persistency/nginx-ui
-      dockerfile: dockerfile
-    restart: unless-stopped
-    ports:
-      - 8084:80
-      - 8443:443
-    networks:
-      - persistency    
+  #nginx-ui:  
+  #  container_name: nginx-ui
+  #  build:
+  #    context: ../../../persistency/nginx-ui
+  #    dockerfile: dockerfile
+  #  restart: unless-stopped
+  #  ports:
+  #    - 8084:80
+  #    - 8443:443
+  #  networks:
+  #    - persistency    
 
   backend:  
     container_name: backend
