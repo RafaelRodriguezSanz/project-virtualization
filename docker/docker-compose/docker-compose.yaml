@@ -110,16 +110,16 @@ services:
    networks:
      - persistency
 
-  prometheus:
-   container_name: prometheus
-   build:
-     context: ../../../backoffice/prometheus
-     dockerfile: dockerfile
-   restart: unless-stopped
-   ports:
-     - 9090:9090
-   networks:
-     - persistency
+  #prometheus:
+  # container_name: prometheus
+  # build:
+  #   context: ../../../backoffice/prometheus
+  #   dockerfile: dockerfile
+  # restart: unless-stopped
+  # ports:
+  #   - 9090:9090
+  # networks:
+  #   - persistency
 
   grafana:
    container_name: grafana
