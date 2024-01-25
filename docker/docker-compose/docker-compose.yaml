@@ -7,7 +7,7 @@ services:
     build:
       context: ../../../backoffice/pgadmin
       dockerfile: dockerfile
-    image: "pelado1998/pgadmin:latest"
+    image: "pelado1998/pgadmin:${TAG}"
     restart: unless-stopped
     ports:
       - 81:80
@@ -19,7 +19,7 @@ services:
    build:
      context: ../../../persistency/postgress
      dockerfile: dockerfile
-   image: "pelado1998/postgres:latest"
+   image: "pelado1998/postgres:${TAG}"
    ports:
      - "5432:5432"
    depends_on:
@@ -34,7 +34,7 @@ services:
    build:
      context: ../../../persistency/redis
      dockerfile: dockerfile
-   image: "pelado1998/redis:latest"
+   image: "pelado1998/redis:${TAG}"
    ports:
      - "6379:6379"
    networks:
@@ -44,7 +44,7 @@ services:
   # build:
   #   context: ../../../backoffice/redis-insight
   #   dockerfile: dockerfile
-  #   image: "pelado1998/redis_insight:latest"
+  #   image: "pelado1998/redis_insight:${TAG}"
   # restart: unless-stopped
   # ports:
   #   - 8001:8001
@@ -56,7 +56,7 @@ services:
    build:
      context: ../../../persistency/mongoDB
      dockerfile: dockerfile
-   image: "pelado1998/mongodb:latest"
+   image: "pelado1998/mongodb:${TAG}"
    restart: unless-stopped
    ports:
      - 27017:27017
@@ -68,7 +68,7 @@ services:
   # build:
   #   context: ../../../backoffice/mongo-express
   #   dockerfile: dockerfile
-  # image: "pelado1998/mongodb:latest"
+  # image: "pelado1998/mongodb:${TAG}"
   # restart: unless-stopped
   # ports:
   #   - 8083:8081
@@ -80,7 +80,7 @@ services:
    build:
      context: ../../../persistency/redpanda
      dockerfile: dockerfile
-   image: "pelado1998/redpanda:latest"
+   image: "pelado1998/redpanda:${TAG}"
    restart: unless-stopped
    ports:
      - 18081:18081
@@ -97,7 +97,7 @@ services:
   # build:
   #   context: ../../../backoffice/redpanda-console
   #   dockerfile: dockerfile
-  #   image: "pelado1998/redpanda-console:latest"
+  #   image: "pelado1998/redpanda-console:${TAG}"
   # restart: unless-stopped
   # ports:
   #   - 8085:8080
@@ -111,7 +111,7 @@ services:
    build:
      context: ../../../persistency/rabitmq
      dockerfile: dockerfile
-   image: "pelado1998/rabitmq:latest"
+   image: "pelado1998/rabitmq:${TAG}"
    restart: unless-stopped
    ports:
      - 5672:5672
@@ -124,7 +124,7 @@ services:
   # build:
   #   context: ../../../backoffice/prometheus
   #   dockerfile: dockerfile
-  # image: "pelado1998/prometheus:latest"
+  # image: "pelado1998/prometheus:${TAG}"
   # restart: unless-stopped
   # ports:
   #   - 9090:9090
@@ -136,7 +136,7 @@ services:
    build:
      context: ../../../backoffice/grafana
      dockerfile: dockerfile
-   image: "pelado1998/grafana:latest"
+   image: "pelado1998/grafana:${TAG}"
    restart: unless-stopped
    ports:
      - 3000:3000
@@ -148,7 +148,7 @@ services:
   #  build:
   #    context: ../../../backoffice/keycloack
   #    dockerfile: dockerfile
-  #  image: "pelado1998/keycloack:latest"
+  #  image: "pelado1998/keycloack:${TAG}"
   #  restart: unless-stopped
   #  ports:
   #    - 8082:8080
@@ -160,7 +160,7 @@ services:
   #  build:
   #    context: ../../../persistency/nginx-ui
   #    dockerfile: dockerfile
-  #  image: "pelado1998/nginx-ui:latest"
+  #  image: "pelado1998/nginx-ui:${TAG}"
   #  restart: unless-stopped
   #  ports:
   #    - 8084:80
@@ -173,7 +173,7 @@ services:
     build:
       context: ../../../backend
       dockerfile: dockerfile
-    image: "pelado1998/backend:latest"
+    image: "pelado1998/backend:${TAG}"
     restart: unless-stopped
     ports:
       - 8080:8080
@@ -185,7 +185,7 @@ services:
     build:
       context: ../../../frontend
       dockerfile: dockerfile
-    image: "pelado1998/frontend:latest"
+    image: "pelado1998/frontend:${TAG}"
     restart: unless-stopped
     ports:
       - 80:80
