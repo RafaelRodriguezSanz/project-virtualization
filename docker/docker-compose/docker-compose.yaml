@@ -50,7 +50,7 @@ services:
   mongodb:
    container_name: mongodb
    build:
-     context: ../../../persistency/mongodb
+     context: ../../../persistency/mongoDB
      dockerfile: dockerfile
    restart: unless-stopped
    ports:
