@@ -122,7 +122,7 @@ services:
    build:
      context: ../../../persistency/rabitmq
      dockerfile: dockerfile
-    image: "pelado1998/rabitmq:${TAG}"
+   image: "pelado1998/rabitmq:${TAG}"
    restart: unless-stopped
    ports:
      - 5672:5672
