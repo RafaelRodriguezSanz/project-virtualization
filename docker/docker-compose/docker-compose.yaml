@@ -1,5 +1,5 @@
-version: "3.3"
-#name: proyecto-ucu-2024
+version: '3.3'
+name: proyecto-ucu-2024
 
 services:
   pgadmin:
@@ -7,7 +7,7 @@ services:
     build:
       context: ../../../backoffice/pgadmin
       dockerfile: dockerfile
-    #image: "pelado1998/pgadmin:${TAG}"
+    image: "pelado1998/pgadmin:${TAG}"
     restart: unless-stopped
     ports:
       - 81:80
@@ -19,7 +19,7 @@ services:
     build:
       context: ../../../persistency/postgress
       dockerfile: dockerfile
-    #image: "pelado1998/postgres:${TAG}"
+    image: "pelado1998/postgres:${TAG}"
     ports:
       - "5432:5432"
     depends_on:
@@ -36,7 +36,7 @@ services:
       dockerfile: dockerfile
     volumes:
       - redis_volume_data:/data
-    #image: "pelado1998/redis:${TAG}"
+    image: "pelado1998/redis:${TAG}"
     ports:
       - "6379:6379"
     networks:
@@ -46,7 +46,7 @@ services:
     build:
       context: ../../../backoffice/redis-insight
       dockerfile: dockerfile
-      #image: "pelado1998/redis_insight:${TAG}"
+    image: "pelado1998/redis_insight:${TAG}"
     restart: unless-stopped
     depends_on:
       - redis
@@ -62,19 +62,20 @@ services:
     build:
       context: ../../../persistency/mongoDB
       dockerfile: dockerfile
-    #image: "pelado1998/mongodb:${TAG}"
+    image: "pelado1998/mongodb:${TAG}"
     restart: unless-stopped
     ports:
       - 27017:27017
     networks:
       - persistency
 
+
   mongodb-express:
    container_name: mongodb-express
    build:
      context: ../../../backoffice/mongo-express
      dockerfile: dockerfile
-   #image: "pelado1998/mongodb:${TAG}"
+   image: "pelado1998/mongodb-express:${TAG}"
    restart: unless-stopped
    ports:
      - 8083:8081
@@ -88,7 +89,7 @@ services:
     build:
       context: ../../../persistency/redpanda
       dockerfile: dockerfile
-    #image: "pelado1998/redpanda:${TAG}"
+    image: "pelado1998/redpanda:${TAG}"
     restart: unless-stopped
     ports:
       - 18081:18081
@@ -100,12 +101,14 @@ services:
     networks:
       - persistency
 
+
   redpanda-console:
    container_name: redpanda-console
    build:
      context: ../../../backoffice/redpanda-console
      dockerfile: dockerfile
-     #image: "pelado1998/redpanda-console:${TAG}"
+   image: "pelado1998/redpanda-console:${TAG}"
+
    restart: unless-stopped
    ports:
      - 8085:8080
@@ -119,7 +122,7 @@ services:
    build:
      context: ../../../persistency/rabitmq
      dockerfile: dockerfile
-     #image: "pelado1998/rabitmq:${TAG}"
+    image: "pelado1998/rabitmq:${TAG}"
    restart: unless-stopped
    ports:
      - 5672:5672
@@ -132,7 +135,7 @@ services:
    build:
      context: ../../../backoffice/prometheus
      dockerfile: dockerfile
-   #image: "pelado1998/prometheus:${TAG}"
+   image: "pelado1998/prometheus:${TAG}"
    restart: unless-stopped
    ports:
      - 9090:9090
@@ -144,7 +147,7 @@ services:
    build:
      context: ../../../backoffice/grafana
      dockerfile: dockerfile
-   #image: "pelado1998/grafana:${TAG}"
+   image: "pelado1998/grafana:${TAG}"
    restart: unless-stopped
    ports:
      - 3000:3000
@@ -156,7 +159,7 @@ services:
     build:
       context: ../../../backoffice/keycloack
       dockerfile: dockerfile
-    #image: "pelado1998/keycloack:${TAG}"
+    image: "pelado1998/keycloack:${TAG}"
     restart: unless-stopped
     ports:
       - 8082:8080
@@ -168,7 +171,7 @@ services:
     build:
       context: ../../../persistency/nginx-ui
       dockerfile: dockerfile
-    #image: "pelado1998/nginx-ui:${TAG}"
+    image: "pelado1998/nginx-ui:${TAG}"
     restart: unless-stopped
     ports:
       - 8086:80
@@ -181,7 +184,7 @@ services:
     build:
       context: ../../../backend
       dockerfile: dockerfile
-    #image: "pelado1998/backend:${TAG}"
+    image: "pelado1998/backend:${TAG}"
     restart: unless-stopped
     ports:
       - 8080:8080
@@ -193,7 +196,7 @@ services:
     build:
       context: ../../../frontend
       dockerfile: dockerfile
-    #image: "pelado1998/frontend:${TAG}"
+    image: "pelado1998/frontend:${TAG}"
     restart: unless-stopped
     ports:
       - 80:3000
