@@ -7,6 +7,7 @@ services:
     build:
       context: ../../../backoffice/pgadmin
       dockerfile: dockerfile
+    image: "pelado1998/pgadmin:${TAG}"
     restart: unless-stopped
     ports:
       - 81:80
@@ -14,87 +15,105 @@ services:
       - persistency
 
   postgres:
-   container_name: postgres
-   build:
-     context: ../../../persistency/postgress
-     dockerfile: dockerfile
-   ports:
-     - "5432:5432"
-   depends_on:
-     - pgadmin
-   restart: unless-stopped
-   networks:
-     - persistency
+    container_name: postgres
+    build:
+      context: ../../../persistency/postgress
+      dockerfile: dockerfile
+    image: "pelado1998/postgres:${TAG}"
+    ports:
+      - "5432:5432"
+    depends_on:
+      - pgadmin
+    restart: unless-stopped
+    networks:
+      - persistency
 
   redis:
-   container_name: redis
-   restart: unless-stopped
-   build:
-     context: ../../../persistency/redis
-     dockerfile: dockerfile
-   ports:
-     - "6379:6379"
-   networks:
-     - persistency
+    container_name: redis
+    restart: unless-stopped
+    build:
+      context: ../../../persistency/redis
+      dockerfile: dockerfile
+    volumes:
+      - redis_volume_data:/data
+    image: "pelado1998/redis:${TAG}"
+    ports:
+      - "6379:6379"
+    networks:
+      - persistency
   redis_insight:
-   container_name: redis_insight
-   build:
-     context: ../../../backoffice/redis-insight
-     dockerfile: dockerfile
-   restart: unless-stopped
-   ports:
-     - 8001:8001
-   networks:
-     - persistency
+    container_name: redis_insight
+    build:
+      context: ../../../backoffice/redis-insight
+      dockerfile: dockerfile
+    image: "pelado1998/redis_insight:${TAG}"
+    restart: unless-stopped
+    depends_on:
+      - redis
+    volumes:
+      - redis_insight_volume_data:/db
+    ports:
+      - 5540:5540
+    networks:
+      - persistency
 
   mongodb:
-   container_name: mongodb
-   build:
-     context: ../../../persistency/mongodb
-     dockerfile: dockerfile
-   restart: unless-stopped
-   ports:
-     - 27017:27017
-   networks:
-     - persistency
+    container_name: mongodb
+    build:
+      context: ../../../persistency/mongoDB
+      dockerfile: dockerfile
+    image: "pelado1998/mongodb:${TAG}"
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    networks:
+      - persistency
+
 
   mongodb-express:
    container_name: mongodb-express
    build:
      context: ../../../backoffice/mongo-express
      dockerfile: dockerfile
+   image: "pelado1998/mongodb-express:${TAG}"
    restart: unless-stopped
    ports:
      - 8083:8081
+   depends_on:
+     - mongodb
    networks:
      - persistency
 
   redpanda:
-   container_name: redpanda
-   build:
-     context: ../../../persistency/redpanda
-     dockerfile: dockerfile
-   restart: unless-stopped
-   ports:
-     - 18081:18081
-     - 18082:18082
-     - 19092:19092
-     - 19644:9644
-     - 8081:8081
-     - 9092:9092
-   networks:
-     - persistency  
+    container_name: redpanda
+    build:
+      context: ../../../persistency/redpanda
+      dockerfile: dockerfile
+    image: "pelado1998/redpanda:${TAG}"
+    restart: unless-stopped
+    ports:
+      - 18081:18081
+      - 18082:18082
+      - 19092:19092
+      - 9644:9644
+      - 8081:8081
+      - 9092:9092
+    networks:
+      - persistency
+
 
   redpanda-console:
    container_name: redpanda-console
    build:
      context: ../../../backoffice/redpanda-console
      dockerfile: dockerfile
+   image: "pelado1998/redpanda-console:${TAG}"
+
    restart: unless-stopped
    ports:
      - 8085:8080
    networks:
-     - persistency  
+     - persistency
    depends_on:
      - redpanda
 
@@ -103,6 +122,7 @@ services:
    build:
      context: ../../../persistency/rabitmq
      dockerfile: dockerfile
+    image: "pelado1998/rabitmq:${TAG}"
    restart: unless-stopped
    ports:
      - 5672:5672
@@ -115,6 +135,7 @@ services:
    build:
      context: ../../../backoffice/prometheus
      dockerfile: dockerfile
+   image: "pelado1998/prometheus:${TAG}"
    restart: unless-stopped
    ports:
      - 9090:9090
@@ -126,59 +147,67 @@ services:
    build:
      context: ../../../backoffice/grafana
      dockerfile: dockerfile
+   image: "pelado1998/grafana:${TAG}"
    restart: unless-stopped
    ports:
      - 3000:3000
    networks:
-     - persistency  
+     - persistency
 
   keycloack:
     container_name: keycloack
     build:
       context: ../../../backoffice/keycloack
       dockerfile: dockerfile
+    image: "pelado1998/keycloack:${TAG}"
     restart: unless-stopped
     ports:
       - 8082:8080
     networks:
-      - persistency  
+      - persistency
 
-  nginx-ui:  
+  nginx-ui:
     container_name: nginx-ui
     build:
       context: ../../../persistency/nginx-ui
       dockerfile: dockerfile
+    image: "pelado1998/nginx-ui:${TAG}"
     restart: unless-stopped
     ports:
-      - 8084:80
+      - 8086:80
       - 8443:443
     networks:
-      - persistency    
+      - persistency
 
-  backend:  
+  backend:
     container_name: backend
     build:
       context: ../../../backend
       dockerfile: dockerfile
+    image: "pelado1998/backend:${TAG}"
     restart: unless-stopped
     ports:
       - 8080:8080
     networks:
-      - persistency   
+      - persistency
 
-  frontend:  
+  frontend:
     container_name: frontend
     build:
       context: ../../../frontend
       dockerfile: dockerfile
+    image: "pelado1998/frontend:${TAG}"
     restart: unless-stopped
     ports:
-      - 80:80
+      - 80:3000
     networks:
-      - persistency      
-
+      - persistency
 
 networks:
   persistency:
     driver: bridge
     name: persistency
+
+volumes:
+  redis_volume_data:
+  redis_insight_volume_data:
